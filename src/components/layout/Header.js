@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import classes from "./Header.module.css";
-import { authActions } from "./store/AuthReducer";
+import { authActions } from "../../store/AuthReducer";
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -16,17 +17,26 @@ const Header = () => {
       <nav>
         <ul>
           <li>
-            <a href="/">My Products</a>
+            <NavLink
+              className={({ isActive }) => (isActive ? "active" : undefined)}
+              to="/counter"
+            >
+              My Counter
+            </NavLink>
           </li>
-          <li>
-            <a href="/">My Sales</a>
-          </li>
-          {isAuthenticated && (
+          {isAuthenticated ? (
             <li>
               <button type="button" onClick={logout}>
                 Logout
               </button>
             </li>
+          ) : (
+            <NavLink
+              className={({ isActive }) => (isActive ? "active" : undefined)}
+              to="/login"
+            >
+              Login
+            </NavLink>
           )}
         </ul>
       </nav>

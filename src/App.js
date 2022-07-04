@@ -1,17 +1,20 @@
 import { Fragment } from "react";
-import Auth from "./components/Auth";
-import Counter from "./components/Counter";
-import Header from "./components/Header";
-import UserProfile from "./components/UserProfile";
-import { useSelector } from "react-redux";
-function App() {
-  const authStatus = useSelector((state) => state.auth.isAuthenticated);
+import Auth from "./components/pages/Auth";
+import Counter from "./components/pages/Counter";
+import Header from "./components/layout/Header";
+import UserProfile from "./components/pages/UserProfile";
+import { Route, Routes, Navigate } from "react-router-dom";
 
+function App() {
   return (
     <Fragment>
       <Header />
-      {!authStatus ? <Auth /> : <UserProfile />}
-      <Counter />
+      <Routes>
+        <Route path="/" element={<Navigate to="/counter" />}></Route>
+        <Route path="/login" element={<Auth />}></Route>
+        <Route path="/profile" element={<UserProfile />}></Route>
+        <Route path="/counter" element={<Counter />}></Route>
+      </Routes>
     </Fragment>
   );
 }

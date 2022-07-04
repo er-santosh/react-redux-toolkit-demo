@@ -1,8 +1,9 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import classes from "./Auth.module.css";
-import { authActions } from "./store/AuthReducer";
-
+import { authActions } from "../../store/AuthReducer";
+import { Navigate } from "react-router-dom";
 const Auth = () => {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
 
   const onSubmitHandler = (event) => {
@@ -13,6 +14,7 @@ const Auth = () => {
   return (
     <main className={classes.auth}>
       <section>
+        {isAuthenticated && <Navigate to="/profile" replace={true} />}
         <form onSubmit={onSubmitHandler}>
           <div className={classes.control}>
             <label htmlFor="email">Email</label>
